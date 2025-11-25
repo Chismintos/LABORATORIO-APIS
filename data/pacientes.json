@@ -1,0 +1,26 @@
+[
+  {
+    "id": "P001",
+    "nombre": "María González",
+    "edad": 35,
+    "telefono": "555-0101",
+    "email": "maria.g@email.com",
+    "fechaRegistro": "2025-01-15"
+  },
+  {
+    "id": "P002",
+    "nombre": "Luis Mendoza",
+    "edad": 42,
+    "telefono": "555-9832",
+    "email": "luis.mendoza@email.com",
+    "fechaRegistro": "2025-11-25"
+  },
+  {
+    "id": "P003",
+    "nombre": "Ana Torres",
+    "edad": 29,
+    "telefono": "555-7722",
+    "email": "ana.torres@email.com",
+    "fechaRegistro": "2025-11-25"
+  }
+]
