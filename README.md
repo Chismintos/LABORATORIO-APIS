@@ -121,7 +121,7 @@ http://localhost:3000
 
 <img width="429" height="708" alt="imagen" src="https://github.com/user-attachments/assets/f59fa18c-96c0-4140-8bcf-a2b1ecf3a0df" />
 
-📅 Agendar 5 citas exitosamente
+📅 Prueba 2 - Agendar 5 citas exitosamente
 
 ✔ Cita 1
 
@@ -144,12 +144,53 @@ http://localhost:3000
 <img width="401" height="694" alt="imagen" src="https://github.com/user-attachments/assets/d08cd5e9-cb23-442b-8eb9-9487ddfe50e6" />
 
 
-✔ Intentar agendar una cita en horario no disponible (debe fallar)
+❌ Prueba 3 - Intentar agendar una cita en horario no disponible (debe fallar)
 
-✔ Intentar agendar dos citas al mismo doctor a la misma hora (debe fallar)
+Supongamos que D002 atiende 09:00–17:00.
+Intentas antes del horario:
 
-✔ Cancelar una cita
+<img width="419" height="525" alt="imagen" src="https://github.com/user-attachments/assets/d925e4ee-44a2-4e8b-be40-c4e5c4dc048c" />
 
-✔ Consultar historial de un paciente
+❌ Prueba 4 - Intentar agendar dos citas al mismo doctor a la misma hora (debe fallar)
 
-✔ Buscar doctores por especialidad
+Tenemos la cita 1
+
+<img width="413" height="688" alt="imagen" src="https://github.com/user-attachments/assets/d8ba56cd-19f3-4be3-8f38-c904825de4bd" />
+
+Y si agregamos una con mismo doctor, misma fecha y hora
+
+<img width="543" height="515" alt="imagen" src="https://github.com/user-attachments/assets/56b73ec6-71cd-4b56-bcec-91fd271c4199" />
+
+🔄 Prueba 5 - Cancelar una cita
+
+La cita:
+
+<img width="365" height="686" alt="imagen" src="https://github.com/user-attachments/assets/46b56960-78df-4c2c-bdcb-84e8ebef7556" />
+
+Cancelada:
+
+<img width="443" height="495" alt="imagen" src="https://github.com/user-attachments/assets/5925f84e-91df-4be7-b4b5-c91a72942a38" />
+
+
+📜 Prueba 6 - Consultar historial de un paciente
+
+Consultamos el historial del paciente P002
+
+<img width="416" height="427" alt="imagen" src="https://github.com/user-attachments/assets/c26fdcff-bd8a-4095-af04-35b617c4e041" />
+
+Historial del paciente 
+
+<img width="466" height="665" alt="imagen" src="https://github.com/user-attachments/assets/6b56df26-f98e-4e55-89c5-47921cec6912" />
+
+🔎 Prueba 7 - Buscar doctores por especialidad
+
+Mostrar solo los doctores que tienen especialidad Cardiología
+
+<img width="462" height="588" alt="imagen" src="https://github.com/user-attachments/assets/b44e8680-217f-495c-a751-a352b97e67c7" />
+
+Mostrar solo los doctores que tienen especialidad Neurologia
+
+<img width="464" height="620" alt="imagen" src="https://github.com/user-attachments/assets/354b62f2-c2d5-4e29-9685-e3a4cfd7666b" />
+
+
+
