@@ -101,7 +101,48 @@ http://localhost:3000
 
 ✔ Prueba 1 — Crear 3 pacientes, 2 doctores
 
-✔ Agendar 5 citas exitosamente
+📌 Paciente A
+
+<img width="582" height="715" alt="imagen" src="https://github.com/user-attachments/assets/34668841-16e9-4f9a-84f6-38042975ba8f" />
+
+📌 Paciente B
+
+<img width="465" height="691" alt="imagen" src="https://github.com/user-attachments/assets/cdb66429-14e0-47ee-8460-43f3eff7a9c4" />
+
+📌 Paciente C
+
+<img width="508" height="692" alt="imagen" src="https://github.com/user-attachments/assets/be7aeb17-ce2a-4ce6-a43e-178388d5fc3a" />
+
+📌 Doctor A
+
+<img width="441" height="702" alt="imagen" src="https://github.com/user-attachments/assets/a8fd1d19-a750-4206-9c05-2414185b8351" />
+
+📌 Doctor B
+
+<img width="429" height="708" alt="imagen" src="https://github.com/user-attachments/assets/f59fa18c-96c0-4140-8bcf-a2b1ecf3a0df" />
+
+📅 Agendar 5 citas exitosamente
+
+✔ Cita 1
+
+<img width="413" height="688" alt="imagen" src="https://github.com/user-attachments/assets/d8ba56cd-19f3-4be3-8f38-c904825de4bd" />
+
+✔ Cita 2
+
+<img width="414" height="690" alt="imagen" src="https://github.com/user-attachments/assets/f71bca09-1ee1-416a-82ac-4de516e382b7" />
+
+✔ Cita 3
+
+<img width="408" height="693" alt="imagen" src="https://github.com/user-attachments/assets/768677c9-9410-4a8a-90fe-3b1fd115b8d9" />
+
+✔ Cita 4
+
+<img width="409" height="697" alt="imagen" src="https://github.com/user-attachments/assets/478b909a-271b-4685-9663-9418e9d0bbb2" />
+
+✔ Cita 5
+
+<img width="401" height="694" alt="imagen" src="https://github.com/user-attachments/assets/d08cd5e9-cb23-442b-8eb9-9487ddfe50e6" />
+
 
 ✔ Intentar agendar una cita en horario no disponible (debe fallar)
 
