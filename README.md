@@ -67,35 +67,67 @@ http://localhost:3000
 
 🔵 POST /pacientes – Registrar nuevo paciente
 
+<img width="468" height="558" alt="imagen" src="https://github.com/user-attachments/assets/cccc11f3-6d86-4a3d-b3ea-20ff82e2599c" />
+
 🔵 GET /pacientes – Listar todos los pacientes
+
+<img width="454" height="573" alt="imagen" src="https://github.com/user-attachments/assets/8d0f8e25-ef37-496a-8ae0-f1892c5842c0" />
 
 🔵 GET /pacientes/:id – Obtener paciente por ID
 
+<img width="390" height="382" alt="imagen" src="https://github.com/user-attachments/assets/5c165ee3-eb33-46d7-a70a-0a42e3c0c40e" />
+
 🔵 PUT /pacientes/:id – Actualizar datos del paciente
 
+<img width="439" height="561" alt="imagen" src="https://github.com/user-attachments/assets/ffc72544-8aa6-4794-86c3-ed82717d0ba6" />
+
 🔵 GET /pacientes/:id/historial – Ver historial de citas del paciente
+
+<img width="447" height="572" alt="imagen" src="https://github.com/user-attachments/assets/e4359373-cf77-498b-9178-6e64146451a0" />
 
 ### 🥼 DOCTORES
 
 🟢 POST /doctores – Registrar nuevo doctor
 
+<img width="488" height="551" alt="imagen" src="https://github.com/user-attachments/assets/218f6f0d-c9f4-41d1-b53b-878dd44a03a6" />
+
 🟢 GET /doctores – Listar todos los doctores
+
+<img width="412" height="558" alt="imagen" src="https://github.com/user-attachments/assets/d5452a64-a50f-45b8-93a4-abc5f7a63af9" />
 
 🟢 GET /doctores/:id – Obtener doctor por ID
 
+<img width="379" height="464" alt="imagen" src="https://github.com/user-attachments/assets/411cd838-3747-4801-9269-e2105b4b09c2" />
+
 🟢 GET /doctores/especialidad/:especialidad - Buscar doctores por especialidad
+
+<img width="496" height="541" alt="imagen" src="https://github.com/user-attachments/assets/6e59beec-09e1-49fb-ba1c-39adf09ed388" />
 
 ### 📅 CITAS
 
 🟠 POST /citas – Agendar nueva cita
 
+<img width="411" height="563" alt="imagen" src="https://github.com/user-attachments/assets/6d273253-9c93-495a-b031-daaebb48d43f" />
+
 🟠 GET /citas – Listar todas las citas (con filtros opcionales por fecha)
+
+<img width="450" height="587" alt="imagen" src="https://github.com/user-attachments/assets/4d9ddc51-d256-4bdd-a73b-a073fb89bca7" />
+
+Con filtros
+
+<img width="415" height="434" alt="imagen" src="https://github.com/user-attachments/assets/806363ff-81ce-4bd0-8a0c-ce6aeecf7602" />
 
 🟠 GET /citas/:id – Obtener cita por ID
 
+<img width="382" height="428" alt="imagen" src="https://github.com/user-attachments/assets/97c1c3e8-c9ec-4b6c-9cf1-40ad291245fb" />
+
 🟠 PUT /citas/:id/cancelar – Cancelar una cita
 
+<img width="430" height="449" alt="imagen" src="https://github.com/user-attachments/assets/537097ab-2e42-49f8-a8be-a80a49c13856" />
+
 🟠 GET /citas/doctor/:doctorId – Ver agenda de un doctor
+
+<img width="453" height="563" alt="imagen" src="https://github.com/user-attachments/assets/194b0563-58e9-49a8-869f-1a5332da7564" />
 
 # 🧪 Casos de Prueba para verificar su sistema
 
