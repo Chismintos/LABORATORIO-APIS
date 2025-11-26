@@ -1,21 +1,43 @@
 const fs = require('fs');
 const path = require('path');
-
 const FILE = path.join(__dirname, '../data/doctores.json');
 
-const leer = () => {
-    try { return JSON.parse(fs.readFileSync(FILE, 'utf8')); }
-    catch { return []; }
+const read = () => {
+  try { return JSON.parse(fs.readFileSync(FILE, 'utf8')); }
+  catch { return []; }
 };
-const escribir = (data) => fs.writeFileSync(FILE, JSON.stringify(data, null, 2));
+const write = (data) => fs.writeFileSync(FILE, JSON.stringify(data, null, 2), 'utf8');
+
+const generarId = () => {
+  const list = read();
+  const n = list.length + 1;
+  return 'D' + String(n).padStart(3, '0');
+};
 
 module.exports = {
-    obtenerTodos() { return leer(); },
-    obtenerPorId(id) { return leer().find(d => d.id === id); },
-    crear(doctor) {
-        const data = leer();
-        data.push(doctor);
-        escribir(data);
-        return doctor;
-    }
+  obtenerTodos() { return read(); },
+  obtenerPorId(id) { return read().find(d => d.id === id); },
+
+  existeNombreEspecialidad(nombre, especialidad) {
+    if (!nombre || !especialidad) return false;
+    return read().some(d =>
+      d.nombre.toLowerCase() === nombre.toLowerCase() &&
+      d.especialidad.toLowerCase() === especialidad.toLowerCase()
+    );
+  },
+
+  crear({ nombre, especialidad, horarioInicio, horarioFin, diasDisponibles }) {
+    const doctores = read();
+    const nuevo = {
+      id: generarId(),
+      nombre,
+      especialidad,
+      horarioInicio,
+      horarioFin,
+      diasDisponibles
+    };
+    doctores.push(nuevo);
+    write(doctores);
+    return nuevo;
+  }
 };
