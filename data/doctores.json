@@ -15,13 +15,37 @@
   },
   {
     "id": "D002",
-    "nombre": "Dra. Sofía Ramírez",
+    "nombre": "Dr. Miguel Herrera",
+    "especialidad": "Neurología",
+    "horarioInicio": "08:00",
+    "horarioFin": "14:00",
+    "diasDisponibles": [
+      "Lunes",
+      "Martes",
+      "Jueves"
+    ]
+  },
+  {
+    "id": "D003",
+    "nombre": "Dra. Sofía Molina",
+    "especialidad": "Gastroenterología",
+    "horarioInicio": "09:00",
+    "horarioFin": "17:00",
+    "diasDisponibles": [
+      "Martes",
+      "Miércoles",
+      "Viernes"
+    ]
+  },
+  {
+    "id": "D004",
+    "nombre": "Dr. Ernesto Salazar",
     "especialidad": "Dermatología",
     "horarioInicio": "10:00",
     "horarioFin": "16:00",
     "diasDisponibles": [
-      "Martes",
-      "Jueves",
+      "Lunes",
+      "Miércoles",
       "Viernes"
     ]
   }

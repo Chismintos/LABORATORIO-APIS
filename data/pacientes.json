@@ -9,18 +9,34 @@
   },
   {
     "id": "P002",
-    "nombre": "Luis Mendoza",
-    "edad": 42,
-    "telefono": "555-9832",
-    "email": "luis.mendoza@email.com",
+    "nombre": "Luis Hernández",
+    "edad": 31,
+    "telefono": "555-8989",
+    "email": "luis.hernandez@example.com",
     "fechaRegistro": "2025-11-25"
   },
   {
     "id": "P003",
-    "nombre": "Ana Torres",
-    "edad": 29,
-    "telefono": "555-7722",
-    "email": "ana.torres@email.com",
+    "nombre": "Carolina Pérez",
+    "edad": 26,
+    "telefono": "555-4411",
+    "email": "carolina.perez@example.com",
     "fechaRegistro": "2025-11-25"
+  },
+  {
+    "id": "P004",
+    "nombre": "Ana Torres",
+    "edad": 33,
+    "telefono": "6461230000",
+    "email": "ana.torres@update.com",
+    "fechaRegistro": "2025-11-25"
+  },
+  {
+    "id": "P005",
+    "nombre": "Carla Ramirez",
+    "edad": 41,
+    "telefono": "6461237890",
+    "email": "carla.ramirez@example.com",
+    "fechaRegistro": "2025-11-26"
   }
 ]
