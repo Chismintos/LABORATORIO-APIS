@@ -6,8 +6,10 @@ const doctoresH = require('../helpers/doctoresHelper');
 
 const obtenerDiaSemana = (fecha) => {
   const dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-  return dias[new Date(fecha).getDay()];
+  const date = new Date(`${fecha}T00:00:00`); 
+  return dias[date.getDay()];
 };
+
 
 // POST /citas - agendar
 router.post('/', (req, res) => {

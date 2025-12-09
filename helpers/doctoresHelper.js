@@ -39,5 +39,22 @@ module.exports = {
     doctores.push(nuevo);
     write(doctores);
     return nuevo;
+  },
+
+  
+  actualizar(id, data) {
+    const doctores = read();
+    const index = doctores.findIndex(d => d.id === id);
+
+    if (index === -1) return null;
+
+    doctores[index] = {
+      ...doctores[index],
+      ...data
+    };
+
+    write(doctores);
+    return doctores[index];
   }
 };
+

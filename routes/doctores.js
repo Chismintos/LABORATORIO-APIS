@@ -48,6 +48,28 @@ router.get('/especialidad/:especialidad', (req, res) => {
 // Retorna doctores que trabajan ese día y hora y que no tienen cita programada en ese slot
 const citasH = require('../helpers/citasHelper');
 
+// PUT /doctores/:id  -> actualizar doctor completo
+// PUT /doctores/:id  -> actualizar doctor
+router.put('/:id', (req, res) => {
+  const { nombre, especialidad, horarioInicio, horarioFin, diasDisponibles } = req.body;
+
+  const doctor = doctoresH.obtenerPorId(req.params.id);
+  if (!doctor)
+    return res.status(404).json({ success: false, message: 'Doctor no encontrado.' });
+
+  const actualizado = doctoresH.actualizar(req.params.id, {
+    nombre,
+    especialidad,
+    horarioInicio,
+    horarioFin,
+    diasDisponibles
+  });
+
+  res.json({ success: true, message: 'Doctor actualizado correctamente.', data: actualizado });
+});
+
+
+
 function obtenerDiaSemana(fecha) {
   const dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
   return dias[new Date(fecha).getDay()];
@@ -71,5 +93,7 @@ router.get('/disponibles', (req, res) => {
 
   res.json({ success: true, data: disponibles });
 });
+
+
 
 module.exports = router;

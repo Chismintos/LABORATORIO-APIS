@@ -45,5 +45,17 @@ module.exports = {
     pacientes[idx] = { ...pacientes[idx], ...campos };
     write(pacientes);
     return pacientes[idx];
+  },
+
+  // =========================
+  // NUEVO MÉTODO ELIMINAR
+  // =========================
+  eliminar(id) {
+    const pacientes = read();
+    const idx = pacientes.findIndex(p => p.id === id);
+    if (idx === -1) return false;
+    pacientes.splice(idx, 1);
+    write(pacientes);
+    return true;
   }
 };

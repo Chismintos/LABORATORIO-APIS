@@ -1,42 +1,34 @@
 [
   {
     "id": "P001",
-    "nombre": "María González",
-    "edad": 35,
-    "telefono": "555-0101",
-    "email": "maria.g@email.com",
+    "nombre": "Cristian Garcia",
+    "edad": 22,
+    "telefono": "6462867597",
+    "email": "kriz@gmail.com",
     "fechaRegistro": "2025-01-15"
   },
   {
-    "id": "P002",
-    "nombre": "Luis Hernández",
-    "edad": 31,
-    "telefono": "555-8989",
-    "email": "luis.hernandez@example.com",
-    "fechaRegistro": "2025-11-25"
-  },
-  {
-    "id": "P003",
-    "nombre": "Carolina Pérez",
-    "edad": 26,
-    "telefono": "555-4411",
-    "email": "carolina.perez@example.com",
-    "fechaRegistro": "2025-11-25"
-  },
-  {
-    "id": "P004",
-    "nombre": "Ana Torres",
-    "edad": 33,
-    "telefono": "6461230000",
-    "email": "ana.torres@update.com",
-    "fechaRegistro": "2025-11-25"
-  },
-  {
     "id": "P005",
-    "nombre": "Carla Ramirez",
+    "nombre": "Carla Ramire",
     "edad": 41,
     "telefono": "6461237890",
     "email": "carla.ramirez@example.com",
     "fechaRegistro": "2025-11-26"
+  },
+  {
+    "id": "P006",
+    "nombre": "Karina",
+    "edad": 40,
+    "telefono": "646286754545",
+    "email": "karinahdez@gmail.com",
+    "fechaRegistro": "2025-12-01"
+  },
+  {
+    "id": "P007",
+    "nombre": "darky",
+    "edad": 19,
+    "telefono": "2232322222",
+    "email": "darky@gmail.com",
+    "fechaRegistro": "2025-12-06"
   }
 ]

@@ -59,4 +59,25 @@ router.get('/:id/historial', (req, res) => {
   res.json({ success: true, data: historial });
 });
 
+// DELETE /pacientes/:id
+router.delete('/:id', (req, res) => {
+  const paciente = pacientesH.obtenerPorId(req.params.id);
+  if (!paciente) {
+    return res.status(404).json({ success: false, message: 'Paciente no encontrado.' });
+  }
+
+  // Opcional: eliminar todas las citas de este paciente
+  citasH.eliminarPorPaciente(req.params.id);
+
+  // Eliminar paciente
+  const eliminado = pacientesH.eliminar(req.params.id);
+
+  if (eliminado) {
+    return res.json({ success: true, message: 'Paciente eliminado correctamente.' });
+  } else {
+    return res.status(500).json({ success: false, message: 'Error al eliminar el paciente.' });
+  }
+});
+
+
 module.exports = router;

@@ -22,6 +22,13 @@ module.exports = {
     return read().filter(c => c.pacienteId === pacienteId);
   },
 
+   eliminarPorPaciente(pacienteId) {
+    const citas = read();
+    const nuevasCitas = citas.filter(c => c.pacienteId !== pacienteId);
+    write(nuevasCitas);
+    return true;
+  },
+
   obtenerPorDoctor(doctorId) {
     return read().filter(c => c.doctorId === doctorId);
   },

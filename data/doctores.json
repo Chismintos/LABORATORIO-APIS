@@ -1,41 +1,29 @@
 [
   {
     "id": "D001",
-    "nombre": "Dr. Carlos Méndez",
-    "especialidad": "Cardiología",
-    "horarioInicio": "09:00",
+    "nombre": "Dr. Carlos Méndezo",
+    "especialidad": "Neumología",
+    "horarioInicio": "09:30",
     "horarioFin": "17:00",
     "diasDisponibles": [
       "Lunes",
       "Martes",
-      "Miércoles",
-      "Jueves",
-      "Viernes"
+      "Miércoles"
     ]
   },
   {
     "id": "D002",
     "nombre": "Dr. Miguel Herrera",
-    "especialidad": "Neurología",
+    "especialidad": "Pediatría",
     "horarioInicio": "08:00",
-    "horarioFin": "14:00",
-    "diasDisponibles": [
-      "Lunes",
-      "Martes",
-      "Jueves"
-    ]
+    "horarioFin": "14:00"
   },
   {
     "id": "D003",
     "nombre": "Dra. Sofía Molina",
-    "especialidad": "Gastroenterología",
-    "horarioInicio": "09:00",
-    "horarioFin": "17:00",
-    "diasDisponibles": [
-      "Martes",
-      "Miércoles",
-      "Viernes"
-    ]
+    "especialidad": "Pediatría",
+    "horarioInicio": "09:30",
+    "horarioFin": "17:00"
   },
   {
     "id": "D004",
@@ -46,6 +34,18 @@
     "diasDisponibles": [
       "Lunes",
       "Miércoles",
+      "Viernes"
+    ]
+  },
+  {
+    "id": "D005",
+    "nombre": "Dr. Alejandro Torres",
+    "especialidad": "Neurología",
+    "horarioInicio": "07:30",
+    "horarioFin": "16:16",
+    "diasDisponibles": [
+      "Lunes",
+      "Jueves",
       "Viernes"
     ]
   }
