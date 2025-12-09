@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de Pacientes - Clínica SaludPlus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: linear-gradient(90deg, #004a99 0%, #003366 100%);
+    color: white;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 24px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.navbar-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.navbar-menu a:hover,
+.navbar-menu a.active {
+    background: rgba(255,255,255,0.2);
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ===== HEADER SECTION ===== */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.header-section h2 {
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+/* ===== SEARCH BOX ===== */
+.search-box {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    padding: 12px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.btn-success {
+    background: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+/* ===== CARDS GRID ===== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #667eea;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.card-header h3 {
+    color: #004a99;
+    font-size: 16px;
+    margin: 0;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.card-content {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.card-content p {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-content strong {
+    color: #333;
+    min-width: 80px;
+}
+
+/* ===== LOADER ===== */
+.loader {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.loader.show {
+    display: block;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== ALERTS ===== */
+.alert {
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: none;
+    animation: slideIn 0.3s ease;
+}
+
+.alert.show {
+    display: block;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 90%;
+    animation: slideUp 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: #004a99;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* ===== FORM GROUPS ===== */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.form-group input.valid {
+    border-color: #28a745;
+    background: rgba(40, 167, 69, 0.02);
+}
+
+.form-group input.invalid {
+    border-color: #dc3545;
+    background: rgba(220, 53, 69, 0.02);
+}
+
+.error-msg {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+.error-msg.show {
+    display: block;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* ===== RESPONSIVIDAD ===== */
+@media (max-width: 768px) {
+    .navbar-menu {
+        gap: 10px;
+    }
+
+    .navbar-menu a {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .header-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header-section h2 {
+        text-align: center;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box input {
+        min-width: unset;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    .navbar h1 {
+        font-size: 18px;
+    }
+
+    .modal-header h2 {
+        font-size: 18px;
+    }
+
+    button {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .card-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card-actions button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="navbar-content">
+        <h1><i class="fas fa-clinic-medical"></i> Clínica SaludPlus</h1>
+        <ul class="navbar-menu">
+            <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="pacientes.html" class="active"><i class="fas fa-users"></i> Pacientes</a></li>
+            <li><a href="doctores.html"><i class="fas fa-user-md"></i> Doctores</a></li>
+            <li><a href="citas.html"><i class="fas fa-calendar"></i> Citas</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- MAIN CONTAINER -->
+<div class="container">
+    <h1><i class="fas fa-users"></i> Gestión de Pacientes</h1>
+
+    <!-- ALERTS -->
+    <div class="alert alert-success" id="alertSuccess"></div>
+    <div class="alert alert-error" id="alertError"></div>
+    <div class="alert alert-info" id="alertInfo"></div>
+
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p>Cargando pacientes...</p>
+    </div>
+
+    <!-- SEARCH SECTION -->
+    <div class="search-box">
+        <input type="text" id="buscarPaciente" placeholder="🔍 Buscar por nombre o ID...">
+        <button class="btn-primary" onclick="buscarPaciente()"><i class="fas fa-search"></i> Buscar</button>
+        <button class="btn-primary" onclick="listarPacientes()"><i class="fas fa-sync"></i> Limpiar</button>
+    </div>
+
+    <!-- HEADER SECTION -->
+    <div class="header-section">
+        <h2><i class="fas fa-list"></i> Lista de Pacientes</h2>
+        <button class="btn-primary" onclick="abrirModalNuevo()">
+            <i class="fas fa-user-plus"></i> Nuevo Paciente
+        </button>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="cards-grid" id="pacientesGrid">
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p>No hay pacientes registrados</p>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PACIENTE -->
+<div class="modal-overlay" id="modalPaciente">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 id="modalTitle"><i class="fas fa-user-plus"></i> Nuevo Paciente</h2>
+            <button class="modal-close" onclick="cerrarModal()"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Nombre Completo *</label>
+                <input type="text" id="pacNombre" placeholder="Ej: Juan Pérez García">
+                <div class="error-msg" id="errNombre"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Edad *</label>
+                <input type="number" id="pacEdad" min="1" max="120" placeholder="Ej: 35">
+                <div class="error-msg" id="errEdad"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Teléfono *</label>
+                <input type="tel" id="pacTelefono" placeholder="Ej: 6461234567">
+                <div class="error-msg" id="errTelefono"></div>
+            </div>
+
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="pacEmail" placeholder="Ej: juan@example.com">
+                <div class="error-msg" id="errEmail"></div>
+            </div>
+
+            <input type="hidden" id="pacienteId">
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="cerrarModal()">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button class="btn-primary" id="btnGuardar" onclick="guardarPaciente()" disabled>
+                <i class="fas fa-save"></i> Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+// ==================== EVENTOS DE VALIDACIÓN ====================
+const inputs = ['pacNombre', 'pacEdad', 'pacTelefono', 'pacEmail'];
+inputs.forEach(id => {
+    document.getElementById(id).addEventListener('input', validarForm);
+});
+
+// ==================== VALIDACIÓN ====================
+function validarForm() {
+    let valid = true;
+    const nombre = document.getElementById('pacNombre');
+    const edad = document.getElementById('pacEdad');
+    const telefono = document.getElementById('pacTelefono');
+    const email = document.getElementById('pacEmail');
+
+    // Validar nombre
+    if (!nombre.value.trim()) {
+        setFieldError(nombre, 'errNombre', 'Nombre requerido');
+        valid = false;
+    } else if (nombre.value.trim().length < 3) {
+        setFieldError(nombre, 'errNombre', 'Nombre debe tener al menos 3 caracteres');
+        valid = false;
+    } else {
+        clearFieldError(nombre, 'errNombre');
+    }
+
+    // Validar edad
+    if (!edad.value || edad.value < 1 || edad.value > 120) {
+        setFieldError(edad, 'errEdad', 'Edad debe estar entre 1-120');
+        valid = false;
+    } else {
+        clearFieldError(edad, 'errEdad');
+    }
+
+    // Validar teléfono
+    const phoneRegex = /^\d{10,}$/;
+    if (!telefono.value || !phoneRegex.test(telefono.value.replace(/\D/g, ''))) {
+        setFieldError(telefono, 'errTelefono', 'Teléfono debe tener mínimo 10 dígitos');
+        valid = false;
+    } else {
+        clearFieldError(telefono, 'errTelefono');
+    }
+
+    // Validar email
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!email.value || !emailRegex.test(email.value)) {
+        setFieldError(email, 'errEmail', 'Email válido requerido');
+        valid = false;
+    } else {
+        clearFieldError(email, 'errEmail');
+    }
+
+    document.getElementById('btnGuardar').disabled = !valid;
+}
+
+function setFieldError(field, errId, message) {
+    field.classList.add('invalid');
+    field.classList.remove('valid');
+    const errEl = document.getElementById(errId);
+    errEl.textContent = message;
+    errEl.classList.add('show');
+}
+
+function clearFieldError(field, errId) {
+    field.classList.remove('invalid');
+    field.classList.add('valid');
+    document.getElementById(errId).classList.remove('show');
+}
+
+// ==================== UTILIDADES ====================
+function showLoader(show = true) {
+    document.getElementById('loader').classList.toggle('show', show);
+}
+
+function showAlert(message, type = 'success', duration = 3000) {
+    const alertId = type === 'success' ? 'alertSuccess' : type === 'error' ? 'alertError' : 'alertInfo';
+    const alertEl = document.getElementById(alertId);
+    alertEl.textContent = message;
+    alertEl.classList.add('show');
+    setTimeout(() => alertEl.classList.remove('show'), duration);
+}
+
+// ==================== MODAL ====================
+function abrirModalNuevo() {
+    document.getElementById('pacienteId').value = '';
+    document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Paciente';
+    limpiarForm();
+    document.getElementById('modalPaciente').classList.add('show');
+}
+
+function cerrarModal() {
+    document.getElementById('modalPaciente').classList.remove('show');
+    limpiarForm();
+}
+
+function limpiarForm() {
+    inputs.forEach(id => {
+        const el = document.getElementById(id);
+        el.value = '';
+        el.classList.remove('valid', 'invalid');
+    });
+    document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
+    validarForm();
+}
+
+// ==================== LISTAR PACIENTES ====================
+async function listarPacientes() {
+    showLoader(true);
+    document.getElementById('buscarPaciente').value = '';
+    
+    try {
+        const data = await api.pacientes.getAll();
+        renderizarPacientes(data.data || []);
+    } catch (error) {
+        showAlert('Error al cargar pacientes', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+function renderizarPacientes(pacientes) {
+    const grid = document.getElementById('pacientesGrid');
+    grid.innerHTML = '';
+
+    if (!pacientes || pacientes.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <i class="fas fa-inbox"></i>
+                <p>No hay pacientes registrados</p>
+                <button class="btn-primary" onclick="abrirModalNuevo()">
+                    <i class="fas fa-user-plus"></i> Agregar el primero
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    pacientes.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="card-header">
+                <h3><i class="fas fa-user-circle"></i> ${p.nombre}</h3>
+            </div>
+            <div class="card-content">
+                <p><strong>ID:</strong> ${p.id}</p>
+                <p><strong>Edad:</strong> ${p.edad} años</p>
+                <p><strong>Teléfono:</strong> ${p.telefono}</p>
+                <p><strong>Email:</strong> ${p.email}</p>
+                <p><strong>Registro:</strong> ${p.fechaRegistro || 'N/A'}</p>
+            </div>
+            <div class="card-actions">
+                <button class="btn-primary btn-small" onclick="editarPaciente('${p.id}')">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn-danger btn-small" onclick="confirmarEliminacion('${p.id}', '${p.nombre}')">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+                <button class="btn-success btn-small" onclick="verHistorial('${p.id}')">
+                    <i class="fas fa-history"></i> Historial
+                </button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// ==================== GUARDAR ====================
+async function guardarPaciente() {
+    const id = document.getElementById('pacienteId').value;
+    const nuevoPaciente = {
+        nombre: document.getElementById('pacNombre').value.trim(),
+        edad: parseInt(document.getElementById('pacEdad').value),
+        telefono: document.getElementById('pacTelefono').value.trim(),
+        email: document.getElementById('pacEmail').value.trim()
+    };
+
+    showLoader(true);
+    try {
+        const data = id
+            ? await api.pacientes.update(id, nuevoPaciente)
+            : await api.pacientes.create(nuevoPaciente);
+
+        if (data.success) {
+            showAlert(data.message, 'success');
+            await listarPacientes();
+            cerrarModal();
+        } else {
+            showAlert(data.message, 'error');
+        }
+    } catch (error) {
+        showAlert('Error al guardar paciente', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+// ==================== EDITAR ====================
+async function editarPaciente(id) {
+    showLoader(true);
+    try {
+        const data = await api.pacientes.getById(id);
+        const p = data.data;
+        
+        document.getElementById('pacNombre').value = p.nombre;
+        document.getElementById('pacEdad').value = p.edad;
+        document.getElementById('pacTelefono').value = p.telefono;
+        document.getElementById('pacEmail').value = p.email;
+        document.getElementById('pacienteId').value = p.id;
+        
+        document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Editar Paciente';
+        validarForm();
+        document.getElementById('modalPaciente').classList.add('show');
+    } catch (error) {
+        showAlert('Error al cargar paciente', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+// ==================== ELIMINAR ====================
+function confirmarEliminacion(id, nombre) {
+    if (confirm(`¿Está seguro de que desea eliminar a ${nombre}?\n\nEsta acción no se puede deshacer.`)) {
+        eliminarPaciente(id);
+    }
+}
+
+async function eliminarPaciente(id) {
+    showLoader(true);
+    try {
+        const data = await api.pacientes.delete(id);
+        if (data.success) {
+            showAlert('Paciente eliminado correctamente', 'success');
+            await listarPacientes();
+        } else {
+            showAlert(data.message, 'error');
+        }
+    } catch (error) {
+        showAlert('Error al eliminar paciente', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+// ==================== HISTORIAL ====================
+async function verHistorial(pacienteId) {
+    showLoader(true);
+    try {
+        // Obtener paciente
+        const resPaciente = await api.pacientes.getById(pacienteId);
+        const paciente = resPaciente.data;
+
+        // Obtener historial de citas del paciente
+        const resHistorial = await api.pacientes.getHistorial(pacienteId);
+        let citas = resHistorial.data || [];
+
+        // Obtener todos los doctores y construir un mapa id -> { nombre, especialidad }
+        let doctorMap = {};
+        try {
+            const resDoctores = await api.doctores.getAll();
+            (resDoctores.data || []).forEach(d => {
+                doctorMap[String(d.id)] = { nombre: d.nombre, especialidad: d.especialidad };
+            });
+        } catch (e) {
+            console.warn('No se pudieron cargar doctores, se mostrarán N/A', e);
+        }
+
+        // Enriquecer las citas con nombreDoctor y especialidad (si existe)
+        citas = citas.map(c => {
+            const doc = doctorMap[String(c.doctorId)] || null;
+            return {
+                ...c,
+                nombreDoctor: doc ? doc.nombre : (c.nombreDoctor || 'N/A'),
+                especialidad: doc ? doc.especialidad : (c.especialidad || 'N/A')
+            };
+        });
+
+        // Mostrar modal con datos
+        mostrarHistorialModal(paciente, citas);
+    } catch (error) {
+        showAlert('Error al cargar el historial', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+function mostrarHistorialModal(paciente, citas) {
+    // eliminar modal anterior si existe
+    const existente = document.getElementById('modalHistorial');
+    if (existente) existente.remove();
+
+    const modalHTML = `
+        <div class="modal-overlay" id="modalHistorial">
+            <div class="modal" style="max-width: 900px; width: 95%;">
+                <div class="modal-header">
+                    <h2><i class="fas fa-history"></i> Historial de Citas</h2>
+                    <button class="modal-close" onclick="cerrarModalHistorial()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                        <h3 style="margin: 0 0 10px 0; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-user-circle"></i> ${paciente.nombre}
+                        </h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-size: 13px;">
+                            <p style="margin: 0;"><strong>ID:</strong> ${paciente.id}</p>
+                            <p style="margin: 0;"><strong>Edad:</strong> ${paciente.edad} años</p>
+                            <p style="margin: 0;"><strong>Teléfono:</strong> ${paciente.telefono}</p>
+                            <p style="margin: 0;"><strong>Email:</strong> ${paciente.email}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label style="font-weight: 600; margin-bottom: 8px; display: block;">Filtrar por estado:</label>
+                        <select id="filtroEstadoHistorial" onchange="filtrarCitasHistorial()" style="padding: 10px; border: 2px solid #ddd; border-radius: 6px; width: 100%; font-size: 14px;">
+                            <option value="">Todas las citas</option>
+                            <option value="programada">Programadas</option>
+                            <option value="completada">Completadas</option>
+                            <option value="cancelada">Canceladas</option>
+                        </select>
+                    </div>
+
+                    <div id="tablaCitasHistorial"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn-secondary" onclick="cerrarModalHistorial()">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+    // guardar para filtrado
+    window.citasHistorialActual = citas || [];
+    renderizarCitasHistorial(window.citasHistorialActual);
+    document.getElementById('modalHistorial').classList.add('show');
+}
+
+function renderizarCitasHistorial(citas) {
+    const contenedor = document.getElementById('tablaCitasHistorial');
+
+    if (!citas || citas.length === 0) {
+        contenedor.innerHTML = `
+            <div class="empty-state" style="padding: 40px 20px;">
+                <i class="fas fa-inbox"></i>
+                <p>Sin citas registradas</p>
+            </div>
+        `;
+        return;
+    }
+
+    const esPequena = window.innerWidth < 768;
+    if (esPequena) {
+        let html = '<div style="display: grid; grid-template-columns: 1fr; gap: 12px;">';
+        citas.forEach(c => {
+            html += `
+                <div style="background: white; border-left: 4px solid #667eea; border-radius: 8px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <strong style="color:#004a99;">${c.fecha}</strong>
+                        <span style="background:${c.estado === 'programada' ? '#28a745' : c.estado === 'completada' ? '#ffc107' : '#dc3545'}; color:white; padding:4px 8px; border-radius:12px; font-size:12px; text-transform:capitalize;">
+                            ${c.estado}
+                        </span>
+                    </div>
+                    <p style="margin:4px 0;"><strong>Hora:</strong> ${c.hora || 'N/A'}</p>
+                    <p style="margin:4px 0;"><strong>Doctor:</strong> ${c.nombreDoctor || 'N/A'}</p>
+                    <p style="margin:4px 0;"><strong>Especialidad:</strong> ${c.especialidad || 'N/A'}</p>
+                    <p style="margin:4px 0;"><strong>Motivo:</strong> ${c.motivo || 'N/A'}</p>
+                </div>
+            `;
+        });
+        html += '</div>';
+        contenedor.innerHTML = html;
+    } else {
+        let html = `
+            <div style="overflow-x:auto; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <table style="width:100%; min-width:700px; border-collapse:collapse;">
+                    <thead>
+                        <tr style="background:linear-gradient(90deg,#004a99 0%,#003366 100%); color:white;">
+                            <th style="padding:12px; text-align:left;">Fecha</th>
+                            <th style="padding:12px; text-align:left;">Hora</th>
+                            <th style="padding:12px; text-align:left;">Doctor</th>
+                            <th style="padding:12px; text-align:left;">Especialidad</th>
+                            <th style="padding:12px; text-align:left;">Motivo</th>
+                            <th style="padding:12px; text-align:center;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        citas.forEach((c, i) => {
+            html += `
+                <tr style="${i % 2 === 0 ? 'background:#f8f9fa;' : ''}">
+                    <td style="padding:12px;">${c.fecha || 'N/A'}</td>
+                    <td style="padding:12px;">${c.hora || 'N/A'}</td>
+                    <td style="padding:12px;">${c.nombreDoctor || 'N/A'}</td>
+                    <td style="padding:12px;">${c.especialidad || 'N/A'}</td>
+                    <td style="padding:12px; max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="${c.motivo || ''}">${c.motivo || 'N/A'}</td>
+                    <td style="padding:12px; text-align:center;">
+                        <span style="background:${c.estado === 'programada' ? '#28a745' : c.estado === 'completada' ? '#ffc107' : '#dc3545'}; color:white; padding:6px 10px; border-radius:20px; text-transform:capitalize;">
+                            ${c.estado}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        });
+        html += `</tbody></table></div>`;
+        contenedor.innerHTML = html;
+    }
+}
+
+function filtrarCitasHistorial() {
+    const estado = document.getElementById('filtroEstadoHistorial').value;
+    const todas = window.citasHistorialActual || [];
+    const filtradas = estado ? todas.filter(c => c.estado === estado) : todas;
+    renderizarCitasHistorial(filtradas);
+}
+
+function cerrarModalHistorial() {
+    const modal = document.getElementById('modalHistorial');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+// ==================== BUSCAR ====================
+// ==================== BUSCAR ====================
+async function buscarPaciente() {
+    const query = document.getElementById('buscarPaciente').value.trim().toLowerCase();
+    if (!query) {
+        listarPacientes();
+        return;
+    }
+
+    showLoader(true);
+    try {
+        const data = await api.pacientes.getAll();
+        const filtrados = data.data.filter(p =>
+            p.nombre.toLowerCase().includes(query) ||
+            String(p.id).toLowerCase().includes(query)  // ← Convertir ID a string y a minúsculas
+        );
+        
+        if (filtrados.length === 0) {
+            showAlert(`No se encontraron resultados para "${query}"`, 'info');
+        }
+        
+        renderizarPacientes(filtrados);
+    } catch (error) {
+        showAlert('Error en la búsqueda', 'error');
+        console.error(error);
+    } finally {
+        showLoader(false);
+    }
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', listarPacientes);
+
+// Cerrar modal al presionar Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        cerrarModal();
+    }
+});
+</script>
+
+</body>
+</html>

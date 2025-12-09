@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gestión de Doctores - Clínica SaludPlus</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== Copiado/armonizado con pacientes.html (mismo look & feel) ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding-bottom: 40px;
+  color: #222;
+}
+
+/* NAVBAR (idéntico a pacientes) */
+.navbar {
+  background: linear-gradient(90deg, #004a99 0%, #003366 100%);
+  color: white;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar h1 { font-size: 24px; font-weight: 600; display:flex; gap:10px; align-items:center; }
+.navbar-menu { display:flex; gap:20px; list-style:none; }
+.navbar-menu a { color:white; text-decoration:none; padding:8px 12px; border-radius:6px; transition:all .3s; font-size:14px; }
+.navbar-menu a:hover, .navbar-menu a.active { background: rgba(255,255,255,0.12); }
+
+/* Container and headings (match pacientes) */
+.container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+h1 { color: white; text-align: center; margin-bottom: 24px; font-size: 32px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+/* Header + search */
+.header-section { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:18px; flex-wrap:wrap; }
+.header-section h2 { color:white; font-size:24px; display:flex; align-items:center; gap:10px; margin:0; }
+.search-box {
+  background: white; padding: 14px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display:flex; gap:10px; align-items:center; width:100%;
+}
+.search-box input { flex:1; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:14px; }
+.search-box input:focus { outline:none; border-color:#667eea; }
+
+/* Cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+  margin-top: 12px;
+}
+.card {
+  background: white; border-radius: 12px; padding: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border-left: 4px solid #667eea; transition: all .18s;
+}
+.card h3 { color: #004a99; font-size: 16px; margin-bottom:8px; display:flex; gap:8px; align-items:center; }
+.card p { font-size: 13px; margin:6px 0; color:#444; }
+.card .card-actions { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+
+/* Buttons */
+button { padding: 10px 14px; border: none; border-radius: 8px; cursor: pointer; font-weight:600; display:inline-flex; gap:8px; align-items:center; }
+.btn-primary { background: #667eea; color: white; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+
+/* Alerts & loader (same style) */
+.alert { padding: 12px; border-radius: 8px; margin: 12px 0; display:none; animation: slideIn .25s ease; }
+.alert.show { display:block; }
+.alert-success { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+.alert-error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
+
+.loader { display:none; text-align:center; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.loader.show { display:block; }
+
+/* Modal (harmonized with pacientes) */
+.modal-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); z-index: 2000; align-items:center; justify-content:center; }
+.modal-overlay.show { display:flex; }
+.modal { background:white; border-radius:12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); max-width:600px; width:90%; max-height:90vh; overflow:auto; }
+.modal-header { padding:16px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+.modal-body { padding:16px; }
+.modal-footer { padding:16px; border-top:1px solid #eee; display:flex; gap:8px; justify-content:flex-end; }
+
+/* Form */
+.form-group { margin-bottom:12px; }
+.form-group label { display:block; margin-bottom:6px; color:#333; font-weight:500; font-size:14px; }
+.form-group input, .form-group select { width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-size:14px; }
+.form-group input:focus, .form-group select:focus { outline:none; border-color:#667eea; }
+.input.invalid { border-color:#dc3545; background: rgba(220,53,69,0.03); }
+.input.valid { border-color:#28a745; background: rgba(40,167,69,0.03); }
+.error-msg { color:#dc3545; font-size:12px; margin-top:6px; display:none; }
+.error-msg.show { display:block; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards-grid { grid-template-columns: 1fr; }
+  .header-section { flex-direction: column; align-items: stretch; }
+  h1 { font-size: 28px; }
+  .modal { width: 95%; }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-content">
+    <h1><i class="fas fa-clinic-medical"></i> Clínica SaludPlus</h1>
+    <ul class="navbar-menu">
+      <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="pacientes.html"><i class="fas fa-users"></i> Pacientes</a></li>
+      <li><a href="doctores.html" class="active"><i class="fas fa-user-md"></i> Doctores</a></li>
+      <li><a href="citas.html"><i class="fas fa-calendar"></i> Citas</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <h1><i class="fas fa-user-md"></i> Gestión de Doctores</h1>
+
+  <div class="alert alert-success" id="alertSuccess"></div>
+  <div class="alert alert-error" id="alertError"></div>
+
+  <!-- BUSCADOR (ahora arriba, con botones Buscar / Limpiar como en pacientes) -->
+  <div class="search-box" style="margin-bottom:12px;">
+    <input id="buscarDoctor" placeholder="🔍 Buscar por nombre, especialidad o ID..." />
+    <button class="btn-primary" onclick="buscarDoctor()"><i class="fas fa-search"></i> Buscar</button>
+    <button class="btn-secondary" onclick="listarDoctores()"><i class="fas fa-sync"></i> Limpiar</button>
+  </div>
+
+  <div class="header-section">
+    <h2><i class="fas fa-list"></i> Lista de Doctores</h2>
+    <button class="btn-primary" onclick="abrirModalNuevo()"><i class="fas fa-plus"></i> Nuevo Doctor</button>
+  </div>
+  
+  <div class="loader" id="loader">
+    <div class="spinner" style="width:36px;height:36px;border:4px solid #f3f3f3;border-top:4px solid #667eea;border-radius:50%;animation:spin 1s linear infinite;margin:8px auto"></div>
+    <div>Cargando doctores...</div>
+  </div>
+
+  <div class="cards-grid" id="doctoresGrid">
+    <div class="empty-state" style="grid-column: 1/-1; text-align:center; color:#fff; padding:40px 0;">
+      <i class="fas fa-inbox" style="font-size:48px; opacity:.7"></i>
+      <p style="margin-top:12px;">No hay doctores registrados</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Doctor -->
+<div class="modal-overlay" id="modalDoctor">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <h3 id="modalTitle"><i class="fas fa-user-plus"></i> Nuevo Doctor</h3>
+      <button class="modal-close" onclick="cerrarModalDoctor()" style="background:none;border:none;font-size:20px;color:#666"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input id="docNombre" class="input" type="text" />
+        <div class="error-msg" id="errNombre"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Especialidad *</label>
+        <select id="docEspecialidad" class="input">
+          <option value="">-- Seleccione --</option>
+          <option>Medicina General</option>
+          <option>Pediatría</option>
+          <option>Cardiología</option>
+          <option>Ginecología</option>
+          <option>Otorrinolaringología</option>
+          <option>Neumología</option>
+          <option>Otras</option>
+        </select>
+        <div class="error-msg" id="errEspecialidad"></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px;">
+        <div class="form-group">
+          <label>Horario inicio *</label>
+          <input id="docInicio" class="input" type="time" />
+        </div>
+        <div class="form-group">
+          <label>Horario fin *</label>
+          <input id="docFin" class="input" type="time" />
+        </div>
+      </div>
+      <div class="error-msg" id="errHorario"></div>
+
+      <div class="form-group">
+        <label>Días disponibles * (mínimo 1)</label>
+        <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px;">
+          <label><input type="checkbox" class="diaChk" value="Lunes" /> Lunes</label>
+          <label><input type="checkbox" class="diaChk" value="Martes" /> Martes</label>
+          <label><input type="checkbox" class="diaChk" value="Miércoles" /> Miércoles</label>
+          <label><input type="checkbox" class="diaChk" value="Jueves" /> Jueves</label>
+          <label><input type="checkbox" class="diaChk" value="Viernes" /> Viernes</label>
+          <label><input type="checkbox" class="diaChk" value="Sábado" /> Sábado</label>
+          <label><input type="checkbox" class="diaChk" value="Domingo" /> Domingo</label>
+        </div>
+        <div class="error-msg" id="errDias"></div>
+      </div>
+
+      <input type="hidden" id="doctorId" />
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="cerrarModalDoctor()">Cancelar</button>
+      <button id="btnGuardarDoc" class="btn-primary" onclick="guardarDoctor()" disabled><i class="fas fa-save"></i> Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+// ====== Reutiliza lógica y nombres como en pacientes.html para consistencia ======
+
+const inputs = ['docNombre', 'docEspecialidad', 'docInicio', 'docFin'];
+inputs.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', validarFormDoctor);
+});
+document.querySelectorAll('.diaChk').forEach(chk => chk.addEventListener('change', validarFormDoctor));
+
+function showLoader(show=true){ document.getElementById('loader').classList.toggle('show', show); }
+function showAlert(msg, type='success', duration=3500) {
+  const id = type==='success' ? 'alertSuccess' : 'alertError';
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), duration);
+}
+
+function validarFormDoctor() {
+  let valid = true;
+  const nombre = document.getElementById('docNombre');
+  const esp = document.getElementById('docEspecialidad');
+  const inicio = document.getElementById('docInicio');
+  const fin = document.getElementById('docFin');
+  const dias = [...document.querySelectorAll('.diaChk')].filter(c=>c.checked).map(c=>c.value);
+
+  // nombre
+  if (!nombre.value.trim() || nombre.value.trim().length < 3) {
+    nombre.classList.add('invalid'); document.getElementById('errNombre').textContent = 'Nombre mínimo 3 caracteres'; document.getElementById('errNombre').classList.add('show'); valid = false;
+  } else { nombre.classList.remove('invalid'); document.getElementById('errNombre').classList.remove('show'); }
+
+  // especialidad
+  if (!esp.value) { esp.classList.add('invalid'); document.getElementById('errEspecialidad').textContent = 'Seleccione especialidad'; document.getElementById('errEspecialidad').classList.add('show'); valid = false; }
+  else { esp.classList.remove('invalid'); document.getElementById('errEspecialidad').classList.remove('show'); }
+
+  // horarios
+  if (!inicio.value || !fin.value) {
+    document.getElementById('errHorario').textContent = 'Horario inicio y fin requeridos'; document.getElementById('errHorario').classList.add('show'); inicio.classList.add('invalid'); fin.classList.add('invalid'); valid = false;
+  } else if (inicio.value >= fin.value) {
+    document.getElementById('errHorario').textContent = 'Horario inicio debe ser menor que fin'; document.getElementById('errHorario').classList.add('show'); inicio.classList.add('invalid'); fin.classList.add('invalid'); valid = false;
+  } else {
+    document.getElementById('errHorario').classList.remove('show'); inicio.classList.remove('invalid'); fin.classList.remove('invalid');
+  }
+
+  // dias
+  if (dias.length === 0) { document.getElementById('errDias').textContent = 'Seleccione al menos un día'; document.getElementById('errDias').classList.add('show'); valid = false; }
+  else { document.getElementById('errDias').classList.remove('show'); }
+
+  document.getElementById('btnGuardarDoc').disabled = !valid;
+}
+
+// Modal controls
+function abrirModalNuevo(){
+  document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-plus"></i> Nuevo Doctor';
+  limpiarFormDoc();
+  document.getElementById('modalDoctor').classList.add('show');
+}
+function cerrarModalDoctor(){
+  document.getElementById('modalDoctor').classList.remove('show');
+  limpiarFormDoc();
+}
+function limpiarFormDoc(){
+  ['docNombre','docEspecialidad','docInicio','docFin','doctorId'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('.diaChk').forEach(c => c.checked = false);
+  document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+  document.querySelectorAll('.input').forEach(i => i.classList.remove('invalid','valid'));
+  validarFormDoctor();
+}
+
+// CRUD & rendering (usa api.js)
+async function listarDoctores(){
+  showLoader(true);
+  try {
+    const res = await api.doctores.getAll();
+    renderDoctores(res.data || []);
+  } catch (e) {
+    console.error(e);
+    showAlert('Error cargando doctores','error');
+  } finally { showLoader(false); }
+}
+
+function renderDoctores(list){
+  const grid = document.getElementById('doctoresGrid');
+  grid.innerHTML = '';
+  if (!list || list.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;text-align:center;color:#fff;padding:40px 0;"><i class="fas fa-inbox" style="font-size:48px;opacity:.7"></i><p style="margin-top:12px;">No hay doctores registrados</p></div>`;
+    return;
+  }
+  list.forEach(d => {
+    const dias = (d.dias || d.diasDisponibles || []).join(', ');
+    const inicio = d.horarioInicio || d.inicio || 'N/A';
+    const fin = d.horarioFin || d.fin || 'N/A';
+    const card = document.createElement('div'); card.className = 'card';
+    card.innerHTML = `
+      <h3><i class="fas fa-user-md"></i> ${d.nombre}</h3>
+      <p><strong>Especialidad:</strong> ${d.especialidad || d.especialidadPrincipal || 'N/A'}</p>
+      <p><strong>Horario:</strong> ${inicio} - ${fin}</p>
+      <p><strong>Días:</strong> ${dias || 'N/A'}</p>
+      <div class="card-actions">
+        <button class="btn-primary" onclick="editarDoctor('${d.id}')"><i class="fas fa-edit"></i> Editar</button>
+        <button class="btn-danger" onclick="confirmarEliminacion('${d.id}','${(d.nombre||'').replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i> Eliminar</button>
+        <button class="btn-secondary" onclick="verAgenda('${d.id}')"><i class="fas fa-calendar-alt"></i> Ver agenda</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Buscar
+let busqTimeout;
+function buscarDoctor(){
+  clearTimeout(busqTimeout);
+  busqTimeout = setTimeout(async () => {
+    const q = document.getElementById('buscarDoctor').value.trim().toLowerCase();
+    if (!q) { listarDoctores(); return; }
+    showLoader(true);
+    try {
+      const res = await api.doctores.getAll();
+      const filtered = (res.data || []).filter(d =>
+        (d.nombre||'').toLowerCase().includes(q) ||
+        (d.especialidad||'').toLowerCase().includes(q) ||
+        String(d.id||'').toLowerCase().includes(q)
+      );
+      renderDoctores(filtered);
+      if (filtered.length === 0) showAlert('No se encontraron doctores','error');
+    } catch (e) {
+      console.error(e); showAlert('Error en búsqueda','error');
+    } finally { showLoader(false); }
+  }, 200);
+}
+
+// Guardar
+async function guardarDoctor() {
+    const id = document.getElementById("doctorId").value;
+    const nombre = document.getElementById("docNombre").value.trim();
+    const especialidad = document.getElementById("docEspecialidad").value;
+    const inicio = document.getElementById("docInicio").value;
+    const fin = document.getElementById("docFin").value;
+
+    const dias = [...document.querySelectorAll(".diaChk")]
+      .filter(c => c.checked)
+      .map(c => c.value);
+
+    const data = {
+        nombre,
+        especialidad,
+        horarioInicio: inicio,
+        horarioFin: fin,
+        diasDisponibles: dias  
+    };
+
+    try {
+        if (id) {
+            await api.doctores.update(id, data);
+            showAlert("Doctor actualizado correctamente");
+        } else {
+            await api.doctores.create(data);
+            showAlert("Doctor agregado correctamente");
+        }
+
+        cerrarModalDoctor();
+        listarDoctores();
+
+    } catch (err) {
+        console.error(err);
+        showAlert("Error al guardar doctor", "error");
+    }
+}
+
+
+// Editar
+async function editarDoctor(id){
+  showLoader(true);
+  try {
+    const res = await api.doctores.getById(id);
+    const d = res.data;
+    document.getElementById('doctorId').value = d.id;
+    document.getElementById('docNombre').value = d.nombre || '';
+    document.getElementById('docEspecialidad').value = d.especialidad || '';
+    document.getElementById('docInicio').value = d.horarioInicio || d.inicio || '';
+    document.getElementById('docFin').value = d.horarioFin || d.fin || '';
+    document.querySelectorAll('.diaChk').forEach(c => c.checked = (d.dias || d.diasDisponibles || []).includes(c.value));
+    document.getElementById('modalTitle').innerHTML = '<i class="fas fa-user-edit"></i> Editar Doctor';
+    validarFormDoctor();
+    document.getElementById('modalDoctor').classList.add('show');
+  } catch (e) {
+    console.error(e); showAlert('Error cargando doctor','error');
+  } finally { showLoader(false); }
+}
+
+// Eliminar
+function confirmarEliminacion(id, nombre){
+  if (confirm(`¿Eliminar a ${nombre}? Esta acción no se puede deshacer.`)) eliminarDoctor(id);
+}
+async function eliminarDoctor(id){
+  showLoader(true);
+  try {
+    const res = await api.doctores.delete(id);
+    if (res.success) { showAlert(res.message || 'Eliminado','success'); await listarDoctores(); }
+    else showAlert(res.message || 'No se pudo eliminar','error');
+  } catch (e) {
+    console.error(e); showAlert('Error al eliminar','error');
+  } finally { showLoader(false); }
+}
+
+// Ver agenda
+async function verAgenda(id){
+  showLoader(true);
+  try {
+    const resDoc = await api.doctores.getById(id);
+    const resCitas = await api.citas.getByDoctor(id);
+    const doc = resDoc.data || {};
+    const citas = resCitas.data || [];
+
+    const existente = document.getElementById('modalAgenda');
+    if (existente) existente.remove();
+
+    const html = `
+      <div class="modal-overlay show" id="modalAgenda">
+        <div class="modal" style="max-width:900px; width:95%;">
+          <div class="modal-header">
+            <h3><i class="fas fa-calendar"></i> Agenda - ${doc.nombre || 'N/A'}</h3>
+            <button class="modal-close" onclick="cerrarAgenda()" style="background:none;border:none;font-size:20px;color:#666"><i class="fas fa-times"></i></button>
+          </div>
+          <div class="modal-body" style="max-height:70vh; overflow:auto;">
+            <div style="background: linear-gradient(135deg,#667eea,#764ba2); color:white; padding:12px; border-radius:8px; margin-bottom:12px;">
+              <p style="margin:0"><strong>Especialidad:</strong> ${doc.especialidad || 'N/A'}</p>
+              <p style="margin:6px 0 0 0"><strong>Horario:</strong> ${doc.horarioInicio || 'N/A'} - ${doc.horarioFin || 'N/A'}</p>
+            </div>
+            <div style="background:white; border-radius:8px; padding:10px; box-shadow:0 4px 12px rgba(0,0,0,0.06);">
+              ${citas.length ? citas.map(c => `<div style="padding:10px;border-bottom:1px solid #eee"><strong>${c.fecha} ${c.hora}</strong> — ${c.pacienteNombre || c.paciente || 'Paciente'} — <em>${c.estado}</em></div>`).join('') : '<div class="empty-state" style="padding:20px;text-align:center">Sin citas</div>'}
+            </div>
+          </div>
+          <div class="modal-footer"><button class="btn-secondary" onclick="cerrarAgenda()">Cerrar</button></div>
+        </div>
+      </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', html);
+  } catch (e) {
+    console.error(e); showAlert('Error cargando agenda','error');
+  } finally { showLoader(false); }
+}
+function cerrarAgenda(){ const m = document.getElementById('modalAgenda'); if (m) m.remove(); }
+
+// Init
+document.addEventListener('DOMContentLoaded', () => { listarDoctores(); document.getElementById('buscarDoctor').focus(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.getElementById('modalDoctor').classList.remove('show'); const ma = document.getElementById('modalAgenda'); if (ma) ma.remove(); } });
+
+// small spinner keyframes
+const ss = document.createElement('style'); ss.innerHTML = '@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}'; document.head.appendChild(ss);
+</script>
+</body>
+</html>
