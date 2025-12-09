@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
     "expo": "^54.0.23",
     "express": "^5.1.0"
   },
